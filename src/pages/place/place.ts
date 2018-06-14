@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ThirdPage } from '../third/third';
+import { PlaceService } from '../../services/places.service';
 
 /**
  * Generated class for the PlacePage page.
@@ -16,22 +16,20 @@ import { ThirdPage } from '../third/third';
 })
 export class PlacePage {
 
-  namePlace: String = '';
+  place: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.namePlace = navParams.get('name');
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public placeService: PlaceService
+  ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlacePage');
   }
 
-  navigateTo() {
-    this.navCtrl.pop();
-  }
-
-  navigateToThird() {
-    this.navCtrl.push(ThirdPage);
+  savePlace() {
+    this.placeService.createPlace(this.place);
   }
 
 }

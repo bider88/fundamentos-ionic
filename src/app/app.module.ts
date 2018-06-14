@@ -4,6 +4,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { firebaseConfig } from './firebase';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PlacePage } from '../pages/place/place';
@@ -12,6 +17,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { AboutPage } from '../pages/about/about';
 import { ThirdPage } from '../pages/third/third';
 import { TextPage } from '../pages/text/text';
+import { PlaceService } from '../services/places.service';
+import { ViewxPage } from '../pages/viewx/viewx';
 
 @NgModule({
   declarations: [
@@ -22,11 +29,15 @@ import { TextPage } from '../pages/text/text';
     TabsPage,
     AboutPage,
     ThirdPage,
-    TextPage
+    TextPage,
+    ViewxPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,12 +48,14 @@ import { TextPage } from '../pages/text/text';
     TabsPage,
     AboutPage,
     ThirdPage,
-    TextPage
+    TextPage,
+    ViewxPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PlaceService
   ]
 })
 export class AppModule {}

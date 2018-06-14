@@ -14,7 +14,30 @@
 
 
 <ion-content padding>
-  <button ion-button (click)="navigateTo()">Regresar</button>
-  <button ion-button (click)="navigateToThird()">Ir a tercera vista</button>
-  {{ namePlace }}
+  <ion-item>
+    <ion-label stacked>Nombre</ion-label>
+    <ion-input type="text" [(ngModel)]="place.name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Dirección</ion-label>
+    <ion-input type="text" [(ngModel)]="place.address"></ion-input>
+  </ion-item>
+
+  <ion-list radio-group [(ngModel)]="place.category">
+    <ion-item>
+      <ion-label>Aire libre</ion-label>
+      <ion-radio checked="true" value="air"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Lugar cerrado</ion-label>
+      <ion-radio value="closed"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label stacked>Descripción</ion-label>
+    <ion-textarea [(ngModel)]="place.description"></ion-textarea>
+  </ion-item>
+  <button ion-button full margin-top (click)="savePlace()">Guardar Lugar</button>
 </ion-content>

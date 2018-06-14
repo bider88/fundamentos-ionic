@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ViewxPage } from '../viewx/viewx';
 
 /**
  * Generated class for the TextPage page.
@@ -20,6 +21,10 @@ export class TextPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TextPage');
+  }
+
+  navigateTo(name) {
+    this.navCtrl.push(ViewxPage, {name});
   }
 
 }

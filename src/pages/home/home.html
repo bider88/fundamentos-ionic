@@ -7,6 +7,19 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="navigateTo('primer Lugar')">Ir a Lugar</button>
-  <button ion-button (click)="navigateTo('segundo Lugar')">Ir a segundo Lugar</button>
+  <ion-fab top right edge>
+    <button ion-fab mini (click)="goToCreatePlace()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-item *ngFor="let place of places">
+      <ion-avatar item-start>
+        <!-- <img src="img/avatar-finn.png"> -->
+      </ion-avatar>
+      <h2>{{ place.name }}</h2>
+      <h3>{{ place.address }}</h3>
+      <p>{{ place.category }}</p>
+    </ion-item>
+  </ion-list>
+  <p text-center *ngIf="places.length === 0">No hay lugares aún por mostrar</p>
 </ion-content>
