@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { PlaceService } from '../../services/places.service';
 import { PlacePage } from '../place/place';
 import { PlaceModel } from '../place/PlaceModel';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -17,10 +18,12 @@ export class HomePage {
     public placeService: PlaceService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController
   ) {
     this.loadingInit();
     this.getPlaces();
+    this.modalCtrl.create(LoginPage).present();
   }
 
   getPlaces() {

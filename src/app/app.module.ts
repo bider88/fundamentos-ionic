@@ -20,6 +20,8 @@ import { ThirdPage } from '../pages/third/third';
 import { TextPage } from '../pages/text/text';
 import { PlaceService } from '../services/places.service';
 import { ViewxPage } from '../pages/viewx/viewx';
+import { LoginPage } from '../pages/login/login';
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { ViewxPage } from '../pages/viewx/viewx';
     AboutPage,
     ThirdPage,
     TextPage,
-    ViewxPage
+    ViewxPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -51,13 +54,15 @@ import { ViewxPage } from '../pages/viewx/viewx';
     AboutPage,
     ThirdPage,
     TextPage,
-    ViewxPage
+    ViewxPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PlaceService
+    PlaceService,
+    AuthService
   ]
 })
 export class AppModule {}
