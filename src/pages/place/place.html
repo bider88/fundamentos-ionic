@@ -39,5 +39,5 @@
     <ion-label stacked>Descripción</ion-label>
     <ion-textarea [(ngModel)]="place.description"></ion-textarea>
   </ion-item>
-  <button ion-button full margin-top (click)="savePlace()">Guardar Lugar</button>
+  <button ion-button full margin-top (click)="savePlace()" [disabled]="placeSaving">Guardar Lugar</button>
 </ion-content>

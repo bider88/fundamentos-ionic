@@ -16,10 +16,8 @@ import { PlaceModel } from './PlaceModel';
   templateUrl: 'place.html',
 })
 export class PlacePage {
-
   place: PlaceModel;
-  msg: string = '';
-  toast;
+  placeSaving: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -27,7 +25,6 @@ export class PlacePage {
     public placeService: PlaceService,
     private toastCtrl: ToastController
   ) {
-    this.presentToast();
     this.place = this.navParams.get('place');
   }
 
@@ -35,35 +32,41 @@ export class PlacePage {
     console.log('ionViewDidLoad PlacePage');
   }
 
-  presentToast() {
-    this.toast = this.toastCtrl.create({
-      message: this.msg,
+  presentToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
       duration: 3000,
       position: 'bottom'
     });
 
-    this.toast.onDidDismiss(() => {
-      this.navCtrl.pop();
+    toast.present();
+
+    toast.onDidDismiss(() => {
+      this.navCtrl.popToRoot();
     });
 
   }
 
   savePlace() {
+    this.placeSaving = true;
     if (!this.place.id) {
       this.placeService.createPlace(this.place)
         .then(res => {
-          this.msg = 'Place was added successfully';
-          this.toast.present();
-          console.log(res)
+          this.presentToast('Place was added successfully');
         })
-        .catch(err => console.log(err));
+        .catch(
+          err => { console.log(err);
+            this.placeSaving = false;
+        });
     } else {
       this.placeService.updatePlace(this.place)
         .then(() => {
-          this.msg = 'Place was updated successfully';
-          this.toast.present();
+          this.presentToast('Place was updated successfully');
         })
-        .catch(err => console.log(err))
+        .catch(
+          err => { console.log(err);
+            this.placeSaving = false;
+        });
     }
   }
 

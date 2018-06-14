@@ -16,7 +16,10 @@ import { HomePage } from '../home/home';
 })
 export class ThirdPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {
   }
 
   ionViewDidLoad() {

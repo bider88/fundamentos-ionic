@@ -36,19 +36,15 @@ export class PlaceService {
     const id = this.afs.createId();
     place.id = id;
     place.createdAt = new Date();
-    return this.placesCollection.doc(id).set(place);
+    return this.placesCollection.doc<PlaceModel>(id).set(place);
   }
 
-  // createPlace(place) {
-    // return this.afdb.database.ref('places').set(place);
-  // }
-
   updatePlace(place: PlaceModel) {
-    return this.placesCollection.doc(place.id).update(place);
+    return this.placesCollection.doc<PlaceModel>(place.id).update(place);
     // this.afdb.database.ref(`places/${place.id}`).set(place);
   }
 
   deletePlace(place: PlaceModel){
-    return this.afdb.database.ref(`/places/${place.id}`).remove();
+    return this.placesCollection.doc(place.id).delete();
   }
 }

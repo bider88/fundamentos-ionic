@@ -8,18 +8,24 @@
 
 <ion-content padding>
   <ion-fab top right edge>
-    <button ion-fab mini (click)="goToCreatePlace()"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab mini (click)="goToPlace({})"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 
   <ion-list>
-    <ion-item *ngFor="let place of places" (click)="goToPlaceDetail(place)">
-      <ion-avatar item-start>
-        <!-- <img src="img/avatar-finn.png"> -->
-      </ion-avatar>
-      <h2>{{ place.name }}</h2>
-      <h3>{{ place.address }}</h3>
-      <p>{{ place.category }}</p>
-    </ion-item>
+    <ion-item-sliding *ngFor="let place of places">
+      <ion-item (click)="goToPlace(place)">
+        <h2>{{ place.name }}</h2>
+        <h3>{{ place.address }}</h3>
+        <p>{{ place.category }}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="confirmDeletePlace(place)">
+          <ion-icon name="trash"></ion-icon>
+          Borrar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
+
   <p text-center *ngIf="places.length === 0">No hay lugares aún por mostrar</p>
 </ion-content>
