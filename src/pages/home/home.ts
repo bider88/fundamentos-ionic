@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { PlaceService } from '../../services/places.service';
 import { PlacePage } from '../place/place';
+import { PlaceModel } from '../place/PlaceModel';
 
 @Component({
   selector: 'page-home',
@@ -9,7 +10,7 @@ import { PlacePage } from '../place/place';
 })
 export class HomePage {
 
-  places: any = [];
+  places: PlaceModel[] = [];
   loading;
 
   constructor(
@@ -21,6 +22,21 @@ export class HomePage {
     this.getPlaces();
   }
 
+  getPlaces() {
+    this.loading.present();
+    this.placeService.getPlaces().subscribe(
+      res => {
+        console.log(res);
+        this.places = res;
+        this.loading.dismiss();
+      },
+      err => {
+        console.log(err);
+        this.loading.dismiss();
+      }
+    );
+  }
+
   loadingInit() {
     this.loading = this.loadingCtrl.create({
       content: 'Cargando...'
@@ -28,23 +44,27 @@ export class HomePage {
   }
 
   goToCreatePlace() {
-    this.navCtrl.push(PlacePage)
+    this.navCtrl.push(PlacePage, {})
   }
 
-  getPlaces() {
-    this.loading.present();
-    this.placeService.getPlaces().valueChanges()
-      .subscribe(
-        res => {
-          console.log(res);
-          this.places = res;
-          this.loading.dismiss();
-        },
-        err => {
-          console.log(err);
-          this.loading.dismiss();
-        }
-      );
+  goToPlaceDetail(place: PlaceModel) {
+    this.navCtrl.push(PlacePage, {place})
   }
+
+  // getPlaces() {
+  //   this.loading.present();
+  //   this.placeService.getPlaces().valueChanges()
+  //     .subscribe(
+  //       res => {
+  //         console.log(res);
+  //         this.places = res;
+  //         this.loading.dismiss();
+  //       },
+  //       err => {
+  //         console.log(err);
+  //         this.loading.dismiss();
+  //       }
+  //     );
+  // }
 
 }

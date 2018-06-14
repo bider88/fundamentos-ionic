@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebaseConfig } from './firebase';
 
@@ -37,6 +38,7 @@ import { ViewxPage } from '../pages/viewx/viewx';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule
   ],
   bootstrap: [IonicApp],

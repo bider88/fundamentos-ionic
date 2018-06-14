@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { PlaceService } from '../../services/places.service';
+import { PlaceModel } from './PlaceModel';
 
 /**
  * Generated class for the PlacePage page.
@@ -16,20 +17,54 @@ import { PlaceService } from '../../services/places.service';
 })
 export class PlacePage {
 
-  place: any = {};
+  place: PlaceModel;
+  msg: string = '';
+  toast;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public placeService: PlaceService
-  ) {}
+    public placeService: PlaceService,
+    private toastCtrl: ToastController
+  ) {
+    this.presentToast();
+    this.place = this.navParams.get('place');
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlacePage');
   }
 
+  presentToast() {
+    this.toast = this.toastCtrl.create({
+      message: this.msg,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    this.toast.onDidDismiss(() => {
+      this.navCtrl.pop();
+    });
+
+  }
+
   savePlace() {
-    this.placeService.createPlace(this.place);
+    if (!this.place.id) {
+      this.placeService.createPlace(this.place)
+        .then(res => {
+          this.msg = 'Place was added successfully';
+          this.toast.present();
+          console.log(res)
+        })
+        .catch(err => console.log(err));
+    } else {
+      this.placeService.updatePlace(this.place)
+        .then(() => {
+          this.msg = 'Place was updated successfully';
+          this.toast.present();
+        })
+        .catch(err => console.log(err))
+    }
   }
 
 }
