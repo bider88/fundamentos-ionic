@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   logout() {
-
+    return this.authAngularFire.auth.signOut();
   }
 
 }

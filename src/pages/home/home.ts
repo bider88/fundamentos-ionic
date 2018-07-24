@@ -23,7 +23,7 @@ export class HomePage {
   ) {
     this.loadingInit();
     this.getPlaces();
-    this.modalCtrl.create(LoginPage).present();
+    this.modalCtrl.create(LoginPage, null, { enableBackdropDismiss: false }).present();
   }
 
   getPlaces() {
